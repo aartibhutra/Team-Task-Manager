@@ -38,7 +38,7 @@ const ProjectDetails = () => {
 
   const fetchUsers = async () => {
     try {
-      const res = await axios.get('http://localhost:5000/api/auth/users');
+      const res = await axios.get('http://localhost:5000http://localhost:5000/api/auth/users');
       setUsers(res.data);
     } catch (err) {
       console.error(err);

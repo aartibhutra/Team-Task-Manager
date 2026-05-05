@@ -17,7 +17,7 @@ const ProjectList = () => {
 
   const fetchProjects = async () => {
     try {
-      const res = await axios.get('http://localhost:5000/api/projects');
+      const res = await axios.get('http://localhost:5000http://localhost:5000/api/projects');
       setProjects(res.data);
     } catch (err) {
       console.error(err);
@@ -29,7 +29,7 @@ const ProjectList = () => {
   const handleCreateProject = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('http://localhost:5000/api/projects', newProject);
+      await axios.post('http://localhost:5000http://localhost:5000/api/projects', newProject);
       setShowModal(false);
       setNewProject({ name: '', description: '' });
       fetchProjects();
