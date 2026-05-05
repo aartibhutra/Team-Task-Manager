@@ -2,7 +2,6 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const dotenv = require('dotenv');
-const { MongoMemoryServer } = require('mongodb-memory-server');
 
 dotenv.config();
 
@@ -25,26 +24,11 @@ app.use((err, req, res, next) => {
 
 const PORT = process.env.PORT || 5000;
 
-const startServer = async () => {
-  try {
-    let mongoUri = process.env.MONGO_URI;
-
-    // Use memory server if MONGO_URI is not provided or local MongoDB fails
-    if (!mongoUri) {
-      console.log('No MONGO_URI provided, starting in-memory MongoDB...');
-      const mongoServer = await MongoMemoryServer.create();
-      mongoUri = mongoServer.getUri();
-    }
-
-    await mongoose.connect(mongoUri);
-    console.log('Connected to MongoDB successfully!');
-
+mongoose.connect(process.env.MONGO_URI)
+  .then(() => {
+    console.log("MongoDB connected");
     app.listen(PORT, () => {
       console.log(`Server running on port ${PORT}`);
     });
-  } catch (err) {
-    console.error('Failed to start server:', err);
-  }
-};
-
-startServer();
+  })
+  .catch(err => console.log(err));
